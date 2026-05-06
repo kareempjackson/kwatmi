@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  RIDER
+  DRIVER
+  ADMIN
+}
+
+enum VehicleType {
+  OKADA
+  KEKE
+}
+
+enum RideStatus {
+  PENDING
+  ACCEPTED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum DriverStatus {
+  OFFLINE
+  ONLINE
+  BUSY
+}
+
+model User {
+  id          String   @id @default(cuid())
+  phoneNumber String   @unique @map("phone_number")
+  firstName   String?  @map("first_name")
+  lastName    String?  @map("last_name")
+  email       String?  @unique
+  role        UserRole @default(RIDER)
+  isActive    Boolean  @default(true) @map("is_active")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  rides  Ride[]
+  driver Driver?
+
+  @@index([phoneNumber])
+  @@map("users")
+}
+
+model Driver {
+  id           String       @id @default(cuid())
+  userId       String       @unique @map("user_id")
+  vehicleType  VehicleType  @map("vehicle_type")
+  plateNumber  String       @map("plate_number")
+  vehicleColor String?      @map("vehicle_color")
+  vehicleModel String?      @map("vehicle_model")
+  licenseNumber String?     @map("license_number")
+  status       DriverStatus @default(OFFLINE)
+  rating       Float        @default(5.0)
+  totalRides   Int          @default(0) @map("total_rides")
+  currentLat   Float?       @map("current_lat")
+  currentLng   Float?       @map("current_lng")
+  isVerified   Boolean      @default(false) @map("is_verified")
+  createdAt    DateTime     @default(now()) @map("created_at")
+  updatedAt    DateTime     @updatedAt @map("updated_at")
+
+  user  User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rides Ride[]
+
+  @@index([status])
+  @@index([vehicleType])
+  @@index([currentLat, currentLng])
+  @@map("drivers")
+}
+
+model Ride {
+  id              String     @id @default(cuid())
+  userId          String     @map("user_id")
+  driverId        String?    @map("driver_id")
+  vehicleType     VehicleType @map("vehicle_type")
+  status          RideStatus @default(PENDING)
+  pickupLat       Float      @map("pickup_lat")
+  pickupLng       Float      @map("pickup_lng")
+  pickupAddress   String?    @map("pickup_address")
+  dropoffLat      Float      @map("dropoff_lat")
+  dropoffLng      Float      @map("dropoff_lng")
+  dropoffAddress  String?    @map("dropoff_address")
+  pickupZoneId    String?    @map("pickup_zone_id")
+  dropoffZoneId   String?    @map("dropoff_zone_id")
+  fareAmount      Int?       @map("fare_amount")
+  distanceKm      Float?     @map("distance_km")
+  durationMinutes Int?       @map("duration_minutes")
+  trackingCode    String?    @unique @map("tracking_code")
+  riderRating     Int?       @map("rider_rating")
+  driverRating    Int?       @map("driver_rating")
+  cancelReason    String?    @map("cancel_reason")
+  requestedAt     DateTime   @default(now()) @map("requested_at")
+  acceptedAt      DateTime?  @map("accepted_at")
+  arrivedAt       DateTime?  @map("arrived_at")
+  startedAt       DateTime?  @map("started_at")
+  completedAt     DateTime?  @map("completed_at")
+  cancelledAt     DateTime?  @map("cancelled_at")
+  createdAt       DateTime   @default(now()) @map("created_at")
+  updatedAt       DateTime   @updatedAt @map("updated_at")
+
+  user        User     @relation(fields: [userId], references: [id])
+  driver      Driver?  @relation(fields: [driverId], references: [id])
+  pickupZone  Zone?    @relation("PickupZone", fields: [pickupZoneId], references: [id])
+  dropoffZone Zone?    @relation("DropoffZone", fields: [dropoffZoneId], references: [id])
+  smsLogs     SmsLog[]
+
+  @@index([userId])
+  @@index([driverId])
+  @@index([status])
+  @@index([trackingCode])
+  @@index([requestedAt])
+  @@map("rides")
+}
+
+model Zone {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  slug      String   @unique
+  polygon   Json?
+  isActive  Boolean  @default(true) @map("is_active")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  pickupRides   Ride[]        @relation("PickupZone")
+  dropoffRides  Ride[]        @relation("DropoffZone")
+  fromPricings  ZonePricing[] @relation("FromZone")
+  toPricings    ZonePricing[] @relation("ToZone")
+
+  @@map("zones")
+}
+
+model ZonePricing {
+  id           String      @id @default(cuid())
+  fromZoneId   String      @map("from_zone_id")
+  toZoneId     String      @map("to_zone_id")
+  vehicleType  VehicleType @map("vehicle_type")
+  baseFare     Int         @map("base_fare")
+  distanceFee  Int         @map("distance_fee")
+  isActive     Boolean     @default(true) @map("is_active")
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+
+  fromZone Zone @relation("FromZone", fields: [fromZoneId], references: [id])
+  toZone   Zone @relation("ToZone", fields: [toZoneId], references: [id])
+
+  @@unique([fromZoneId, toZoneId, vehicleType])
+  @@map("zone_pricing")
+}
+
+model SmsLog {
+  id           String   @id @default(cuid())
+  phoneNumber  String   @map("phone_number")
+  template     String
+  message      String
+  status       String
+  messageId    String?  @map("message_id")
+  errorMessage String?  @map("error_message")
+  rideId       String?  @map("ride_id")
+  costNgn      Int      @default(0) @map("cost_ngn")
+  sentAt       DateTime @default(now()) @map("sent_at")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  ride Ride? @relation(fields: [rideId], references: [id], onDelete: SetNull)
+
+  @@index([phoneNumber])
+  @@index([rideId])
+  @@index([status])
+  @@index([sentAt])
+  @@index([template])
+  @@map("sms_logs")
+}
