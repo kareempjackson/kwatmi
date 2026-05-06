@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Zone {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  originPricings      ZonePricing[] @relation("OriginZone")
+  destinationPricings ZonePricing[] @relation("DestinationZone")
+
+  @@map("zones")
+}
+
+model ZonePricing {
+  id              String   @id @default(cuid())
+  originZoneId    String
+  destinationZoneId String
+  distanceFeeKeke Int      // Fee in Naira for Keke
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  originZone      Zone @relation("OriginZone", fields: [originZoneId], references: [id])
+  destinationZone Zone @relation("DestinationZone", fields: [destinationZoneId], references: [id])
+
+  @@unique([originZoneId, destinationZoneId])
+  @@map("zone_pricings")
+}
