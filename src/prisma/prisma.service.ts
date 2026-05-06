@@ -17,9 +17,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   }
 
   async onModuleInit() {
-    this.logger.log('Connecting to database...');
+    this.logger.log('Connecting to PostgreSQL database...');
     await this.$connect();
-    this.logger.log('Database connection established');
+    this.logger.log('Successfully connected to database');
   }
 
   async onModuleDestroy() {
@@ -29,24 +29,81 @@ export class PrismaService extends PrismaClient implements OnModuleInit, OnModul
   }
 
   /**
-   * Clean database for testing - removes all data in correct order
+   * Find nearby online drivers within a radius using PostGIS
    */
-  async cleanDatabase() {
-    if (process.env.NODE_ENV === 'production') {
-      throw new Error('Cannot clean database in production');
-    }
+  async findNearbyDrivers(
+    lat: number,
+    lng: number,
+    radiusMeters: number = 5000,
+    vehicleType?: 'OKADA' | 'KEKE'
+  ) {
+    const vehicleFilter = vehicleType ? `AND d.vehicle_type = '${vehicleType}'` : '';
+    
+    return this.$queryRawUnsafe<Array<{
+      id: string;
+      user_id: string;
+      vehicle_type: string;
+      plate_number: string;
+      current_lat: number;
+      current_lng: number;
+      distance_meters: number;
+      driver_name: string;
+      driver_phone: string;
+    }>>(`
+      SELECT 
+        d.id,
+        d.user_id,
+        d.vehicle_type,
+        d.plate_number,
+        d.current_lat,
+        d.current_lng,
+        ST_Distance(
+          d.location::geography,
+          ST_SetSRID(ST_MakePoint($1, $2), 4326)::geography
+        ) as distance_meters,
+        u.name as driver_name,
+        u.phone as driver_phone
+      FROM drivers d
+      JOIN users u ON d.user_id = u.id
+      WHERE d.is_online = true
+        AND d.location IS NOT NULL
+        ${vehicleFilter}
+        AND ST_DWithin(
+          d.location::geography,
+          ST_SetSRID(ST_MakePoint($1, $2), 4326)::geography,
+          $3
+        )
+      ORDER BY distance_meters ASC
+      LIMIT 20
+    `, lng, lat, radiusMeters);
+  }
 
-    const tablenames = await this.$queryRaw<Array<{ tablename: string }>>(
-      `SELECT tablename FROM pg_tables WHERE schemaname='public'`
-    );
+  /**
+   * Find which zone contains a given point using PostGIS
+   */
+  async findZoneByPoint(lat: number, lng: number) {
+    const result = await this.$queryRawUnsafe<Array<{ id: string; name: string }>>(`
+      SELECT id, name
+      FROM zones
+      WHERE ST_Contains(
+        ST_GeomFromGeoJSON(polygon::text),
+        ST_SetSRID(ST_MakePoint($1, $2), 4326)
+      )
+      LIMIT 1
+    `, lng, lat);
 
-    const tables = tablenames
-      .map(({ tablename }) => tablename)
-      .filter((name) => name !== '_prisma_migrations')
-      .map((name) => `"public"."${name}"`);
+    return result[0] || null;
+  }
 
-    if (tables.length > 0) {
-      await this.$executeRawUnsafe(`TRUNCATE TABLE ${tables.join(', ')} CASCADE;`);
+  /**
+   * Health check for database connection
+   */
+  async healthCheck(): Promise<boolean> {
+    try {
+      await this.$queryRaw`SELECT 1`;
+      return true;
+    } catch {
+      return false;
     }
   }
 }

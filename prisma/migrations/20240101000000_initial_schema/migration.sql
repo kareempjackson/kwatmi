@@ -17,7 +17,6 @@ CREATE TABLE "users" (
     "name" TEXT,
     "role" "UserRole" NOT NULL DEFAULT 'PASSENGER',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
@@ -32,8 +31,6 @@ CREATE TABLE "drivers" (
     "is_online" BOOLEAN NOT NULL DEFAULT false,
     "current_lat" DOUBLE PRECISION,
     "current_lng" DOUBLE PRECISION,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "drivers_pkey" PRIMARY KEY ("id")
 );
@@ -43,8 +40,6 @@ CREATE TABLE "zones" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "polygon" JSONB NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "zones_pkey" PRIMARY KEY ("id")
 );
@@ -56,8 +51,6 @@ CREATE TABLE "pricing" (
     "to_zone_id" TEXT NOT NULL,
     "vehicle_type" "VehicleType" NOT NULL,
     "price_naira" INTEGER NOT NULL,
-    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "pricing_pkey" PRIMARY KEY ("id")
 );
@@ -78,10 +71,7 @@ CREATE TABLE "rides" (
     "status" "RideStatus" NOT NULL DEFAULT 'REQUESTED',
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "accepted_at" TIMESTAMP(3),
-    "arrived_at" TIMESTAMP(3),
     "completed_at" TIMESTAMP(3),
-    "cancelled_at" TIMESTAMP(3),
-    "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "rides_pkey" PRIMARY KEY ("id")
 );
@@ -133,3 +123,30 @@ ALTER TABLE "rides" ADD CONSTRAINT "rides_pickup_zone_id_fkey" FOREIGN KEY ("pic
 
 -- AddForeignKey
 ALTER TABLE "rides" ADD CONSTRAINT "rides_dropoff_zone_id_fkey" FOREIGN KEY ("dropoff_zone_id") REFERENCES "zones"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- Create spatial index on driver location using PostGIS
+-- This enables efficient nearby driver queries
+ALTER TABLE "drivers" ADD COLUMN IF NOT EXISTS "location" geometry(Point, 4326);
+
+CREATE INDEX IF NOT EXISTS "drivers_location_gist_idx" ON "drivers" USING GIST ("location");
+
+-- Create function to automatically update location geometry from lat/lng
+CREATE OR REPLACE FUNCTION update_driver_location()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.current_lat IS NOT NULL AND NEW.current_lng IS NOT NULL THEN
+        NEW.location = ST_SetSRID(ST_MakePoint(NEW.current_lng, NEW.current_lat), 4326);
+    ELSE
+        NEW.location = NULL;
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create trigger to auto-update location
+DROP TRIGGER IF EXISTS trigger_update_driver_location ON "drivers";
+CREATE TRIGGER trigger_update_driver_location
+    BEFORE INSERT OR UPDATE OF current_lat, current_lng
+    ON "drivers"
+    FOR EACH ROW
+    EXECUTE FUNCTION update_driver_location();
