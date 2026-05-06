@@ -1,96 +1,135 @@
-// Prisma schema for Kwatmi's Studio - Nigerian Uber Clone
-// Supports users, drivers, rides, and zone management
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
+  extensions = [postgis]
 }
 
-// User model - riders who request rides
+// Enums
+enum UserRole {
+  PASSENGER
+  DRIVER
+}
+
+enum VehicleType {
+  OKADA
+  KEKE
+}
+
+enum RideStatus {
+  REQUESTED
+  ACCEPTED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+// Models
 model User {
   id        String   @id @default(cuid())
   phone     String   @unique
   name      String?
+  role      UserRole @default(PASSENGER)
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
-  rides     Ride[]   @relation("RiderRides")
+
+  // Relations
+  driver         Driver?
+  ridesAsPassenger Ride[] @relation("PassengerRides")
+  ridesAsDriver    Ride[] @relation("DriverRides")
 
   @@map("users")
 }
 
-// Vehicle types available in Nigeria
-enum VehicleType {
-  okada // Motorcycle taxi
-  keke  // Three-wheeler/tricycle
-}
-
-// Driver model - okada and keke drivers
 model Driver {
   id          String      @id @default(cuid())
-  name        String
-  phone       String      @unique
-  photoUrl    String?     @map("photo_url")
+  userId      String      @unique @map("user_id")
   vehicleType VehicleType @map("vehicle_type")
   plateNumber String      @map("plate_number")
-  rating      Float       @default(5.0)
-  isActive    Boolean     @default(true) @map("is_active")
+  photoUrl    String?     @map("photo_url")
+  isOnline    Boolean     @default(false) @map("is_online")
   currentLat  Float?      @map("current_lat")
   currentLng  Float?      @map("current_lng")
   createdAt   DateTime    @default(now()) @map("created_at")
   updatedAt   DateTime    @updatedAt @map("updated_at")
-  rides       Ride[]      @relation("DriverRides")
 
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([isOnline])
+  @@index([currentLat, currentLng])
   @@map("drivers")
 }
 
-// Ride status lifecycle
-enum RideStatus {
-  requested
-  accepted
-  arrived
-  in_progress
-  completed
-  cancelled
-}
-
-// Ride model - individual ride requests and trips
-model Ride {
-  id             String     @id @default(cuid())
-  riderId        String     @map("rider_id")
-  driverId       String?    @map("driver_id")
-  pickupLat      Float      @map("pickup_lat")
-  pickupLng      Float      @map("pickup_lng")
-  pickupAddress  String     @map("pickup_address")
-  dropoffLat     Float      @map("dropoff_lat")
-  dropoffLng     Float      @map("dropoff_lng")
-  dropoffAddress String     @map("dropoff_address")
-  zonePair       String?    @map("zone_pair") // Format: "zone1_id:zone2_id"
-  fareAmount     Float?     @map("fare_amount")
-  status         RideStatus @default(requested)
-  createdAt      DateTime   @default(now()) @map("created_at")
-  updatedAt      DateTime   @updatedAt @map("updated_at")
-
-  rider  User    @relation("RiderRides", fields: [riderId], references: [id])
-  driver Driver? @relation("DriverRides", fields: [driverId], references: [id])
-
-  @@index([riderId])
-  @@index([driverId])
-  @@index([status])
-  @@index([createdAt])
-  @@map("rides")
-}
-
-// Zone model - geographic zones for fare calculation
 model Zone {
   id        String   @id @default(cuid())
   name      String   @unique
-  polygon   Json     // GeoJSON polygon coordinates
+  polygon   Json     // GeoJSON polygon stored as JSON
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  // Relations
+  pricingsFrom Pricing[] @relation("FromZone")
+  pricingsTo   Pricing[] @relation("ToZone")
+  pickupRides  Ride[]    @relation("PickupZone")
+  dropoffRides Ride[]    @relation("DropoffZone")
+
   @@map("zones")
+}
+
+model Pricing {
+  id          String      @id @default(cuid())
+  fromZoneId  String      @map("from_zone_id")
+  toZoneId    String      @map("to_zone_id")
+  vehicleType VehicleType @map("vehicle_type")
+  priceNaira  Int         @map("price_naira")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  fromZone Zone @relation("FromZone", fields: [fromZoneId], references: [id], onDelete: Cascade)
+  toZone   Zone @relation("ToZone", fields: [toZoneId], references: [id], onDelete: Cascade)
+
+  @@unique([fromZoneId, toZoneId, vehicleType])
+  @@map("pricing")
+}
+
+model Ride {
+  id            String      @id @default(cuid())
+  passengerId   String      @map("passenger_id")
+  driverId      String?     @map("driver_id")
+  vehicleType   VehicleType @map("vehicle_type")
+  pickupLat     Float       @map("pickup_lat")
+  pickupLng     Float       @map("pickup_lng")
+  dropoffLat    Float       @map("dropoff_lat")
+  dropoffLng    Float       @map("dropoff_lng")
+  pickupZoneId  String?     @map("pickup_zone_id")
+  dropoffZoneId String?     @map("dropoff_zone_id")
+  fareNaira     Int         @map("fare_naira")
+  status        RideStatus  @default(REQUESTED)
+  createdAt     DateTime    @default(now()) @map("created_at")
+  acceptedAt    DateTime?   @map("accepted_at")
+  arrivedAt     DateTime?   @map("arrived_at")
+  completedAt   DateTime?   @map("completed_at")
+  cancelledAt   DateTime?   @map("cancelled_at")
+  updatedAt     DateTime    @updatedAt @map("updated_at")
+
+  // Relations
+  passenger   User  @relation("PassengerRides", fields: [passengerId], references: [id], onDelete: Cascade)
+  driver      User? @relation("DriverRides", fields: [driverId], references: [id], onDelete: SetNull)
+  pickupZone  Zone? @relation("PickupZone", fields: [pickupZoneId], references: [id], onDelete: SetNull)
+  dropoffZone Zone? @relation("DropoffZone", fields: [dropoffZoneId], references: [id], onDelete: SetNull)
+
+  @@index([status])
+  @@index([passengerId])
+  @@index([driverId])
+  @@map("rides")
 }
