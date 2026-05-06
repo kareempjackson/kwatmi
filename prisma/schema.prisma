@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String   @id @default(uuid())
+  email         String   @unique
+  phone         String?  @unique
+  passwordHash  String
+  firstName     String?
+  lastName      String?
+  role          String   @default("rider") // rider, driver, admin
+  
+  // Driver-specific fields
+  vehicleType   String?  // keke, motorcycle, car, suv
+  vehiclePlate  String?
+  isAvailable   Boolean  @default(false)
+  currentLat    Float?
+  currentLng    Float?
+  
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  ridesAsRider  Ride[]   @relation("RiderRides")
+  ridesAsDriver Ride[]   @relation("DriverRides")
+
+  @@map("users")
+}
+
+model Ride {
+  id                String    @id @default(uuid())
+  riderId           String
+  driverId          String?
+  
+  pickupLat         Float
+  pickupLng         Float
+  pickupAddress     String?
+  
+  dropoffLat        Float
+  dropoffLng        Float
+  dropoffAddress    String?
+  
+  vehicleType       String    // keke, motorcycle, car, suv
+  fareAmount        Int       // Amount in kobo (NGN smallest unit)
+  fareCurrency      String    @default("NGN")
+  estimatedDistance Float?    // in kilometers
+  
+  status            String    @default("requested") // requested, accepted, arrived, in_progress, completed, cancelled
+  
+  acceptedAt        DateTime?
+  arrivedAt         DateTime?
+  startedAt         DateTime?
+  completedAt       DateTime?
+  cancelledAt       DateTime?
+  
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  
+  rider             User      @relation("RiderRides", fields: [riderId], references: [id])
+  driver            User?     @relation("DriverRides", fields: [driverId], references: [id])
+
+  @@index([riderId])
+  @@index([driverId])
+  @@index([status])
+  @@map("rides")
+}
