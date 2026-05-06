@@ -1,128 +1,122 @@
-# Kwatmi's Studio Design Language
+# Kwatmi Design Language
 
-> A Nigerian ride-hailing experience built for speed, trust, and local reality.
+> The visual identity system for Nigeria's modern ride-hailing experience.
 
 ---
 
 ## Identity
 
-**Personality:** Swift · Trustworthy · Grounded
+**Personality:** Bold, Trustworthy, Vibrant
 
-**Philosophy:** "Move with confidence." Kwatmi exists to bring reliable, dignified transportation to every Nigerian — whether on the back of an okada or inside a keke. We design for the chaos of Lagos traffic and the patience of Abuja roundabouts. Every pixel earns its place.
+**Philosophy:** Kwatmi brings the energy of Nigerian movement — fast, reliable, and unmistakably local. Every pixel serves riders navigating Lagos traffic under the afternoon sun.
 
-**Voice:** Direct and warm. We speak like a trusted friend who knows the streets — no corporate fluff, no condescension. We use Naira, not dollars. We say "Dey go" not "Let's ride."
+**Voice:** Direct and confident. We speak like a friend who knows the streets — no unnecessary words, just clear guidance that gets you where you need to go.
 
 ---
 
 ## Colors
 
-### Primary Palette
+### Brand Palette
 
-| Name | Hex | CSS Var | Usage |
-|------|-----|---------|-------|
-| **Kwatmi Green** | `#00A86B` | `--color-brand-primary` | Primary CTAs, active states, success indicators |
-| **Green Light** | `#00C77B` | `--color-brand-primary-light` | Hover states, highlights |
-| **Green Dark** | `#008F5B` | `--color-brand-primary-dark` | Pressed states, emphasis |
-| **Green Muted** | `rgba(0,168,107,0.15)` | `--color-brand-primary-muted` | Backgrounds, subtle highlights |
-| **Lagos Gold** | `#F5A623` | `--color-accent-gold` | Ratings, premium badges, warnings |
-| **Gold Light** | `#FFB84D` | `--color-accent-gold-light` | Gold hover state |
-
-### Semantic Colors
-
-| Name | Hex | CSS Var | Usage |
-|------|-----|---------|-------|
-| Success | `#00A86B` | `--color-semantic-success` | Confirmations, completed states |
-| Warning | `#F5A623` | `--color-semantic-warning` | Alerts, surge pricing |
-| Error | `#E53935` | `--color-semantic-error` | Errors, cancellations |
-| Info | `#2196F3` | `--color-semantic-info` | Tips, informational banners |
+| Name | Hex | CSS Variable | Usage |
+|------|-----|--------------|-------|
+| Go Green | `#00B140` | `--color-go-green` | Primary actions, success states, brand identity |
+| Go Green Light | `#4ADE80` | `--color-go-green-light` | Hover states, highlights, active indicators |
+| Go Green Dark | `#15803D` | `--color-go-green-dark` | Pressed states, emphasis |
+| Naija Gold | `#F59E0B` | `--color-naija-gold` | Promotions, warnings, premium features |
+| Alert Red | `#EF4444` | `--color-alert-red` | Errors, cancellations, urgent alerts |
+| Trust Blue | `#3B82F6` | `--color-trust-blue` | Information, links, secondary actions |
+| Surface Dark | `#0A0F0D` | `--color-surface-dark` | Primary background |
+| Surface Elevated | `#141A17` | `--color-surface-elevated` | Cards, modals, elevated surfaces |
 
 ### Neutral Scale
 
-| Shade | Hex | CSS Var | Usage |
-|-------|-----|---------|-------|
-| Gray 950 | `#0A0A0A` | `--color-gray-950` | Deepest background |
-| Gray 900 | `#121212` | `--color-gray-900` | Primary background |
-| Gray 850 | `#1A1A1A` | `--color-gray-850` | Elevated surfaces |
-| Gray 800 | `#242424` | `--color-gray-800` | Cards, containers |
-| Gray 700 | `#333333` | `--color-gray-700` | Borders, dividers |
-| Gray 600 | `#4D4D4D` | `--color-gray-600` | Disabled text |
-| Gray 500 | `#666666` | `--color-gray-500` | Tertiary text |
-| Gray 400 | `#808080` | `--color-gray-400` | Placeholder text |
-| Gray 300 | `#A3A3A3` | `--color-gray-300` | Secondary text |
-| Gray 200 | `#C4C4C4` | `--color-gray-200` | Subtle text |
-| Gray 100 | `#E5E5E5` | `--color-gray-100` | Light borders |
-| Gray 50 | `#F5F5F5` | `--color-gray-50` | Primary text (on dark) |
+| Shade | Hex | CSS Variable | Usage |
+|-------|-----|--------------|-------|
+| 950 | `#0A0F0D` | `--color-neutral-950` | Primary background |
+| 900 | `#141A17` | `--color-neutral-900` | Secondary background |
+| 800 | `#1F2923` | `--color-neutral-800` | Subtle borders |
+| 700 | `#2D3B33` | `--color-neutral-700` | Default borders |
+| 600 | `#3D5147` | `--color-neutral-600` | Strong borders |
+| 500 | `#5E7A6D` | `--color-neutral-500` | Muted text |
+| 400 | `#8BA498` | `--color-neutral-400` | Secondary text |
+| 300 | `#B8CABE` | `--color-neutral-300` | Placeholder text |
+| 200 | `#D9E5DC` | `--color-neutral-200` | Disabled text |
+| 100 | `#ECF2EE` | `--color-neutral-100` | Light backgrounds |
+| 50 | `#F7FAF8` | `--color-neutral-50` | Primary text, pure surface |
 
 ---
 
 ## Typography
 
-**Font Stack:**
-- Sans: `Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif`
-- Mono: `JetBrains Mono, SF Mono, Fira Code, monospace`
+**Primary Font:** Inter  
+**Monospace Font:** JetBrains Mono
 
-### Type Scale
+| Style | Size | Line Height | Letter Spacing | Weight | Family |
+|-------|------|-------------|----------------|--------|--------|
+| Display XL | 3.5rem (56px) | 1.1 | -0.03em | 700 | Inter |
+| Display LG | 2.75rem (44px) | 1.15 | -0.025em | 700 | Inter |
+| Display MD | 2.25rem (36px) | 1.2 | -0.02em | 600 | Inter |
+| Heading LG | 1.75rem (28px) | 1.25 | -0.015em | 600 | Inter |
+| Heading MD | 1.375rem (22px) | 1.3 | -0.01em | 600 | Inter |
+| Heading SM | 1.125rem (18px) | 1.35 | -0.005em | 600 | Inter |
+| Body LG | 1.125rem (18px) | 1.6 | 0em | 400 | Inter |
+| Body MD | 1rem (16px) | 1.6 | 0em | 400 | Inter |
+| Body SM | 0.9375rem (15px) | 1.5 | 0em | 400 | Inter |
+| Label | 0.9375rem (15px) | 1.2 | 0.01em | 500 | Inter |
+| Caption | 0.8125rem (13px) | 1.4 | 0.01em | 400 | Inter |
 
-| Style | Size | Line Height | Letter Spacing | Weight | Use Case |
-|-------|------|-------------|----------------|--------|----------|
-| **Display XL** | 3.5rem (56px) | 1.1 | -0.03em | 700 | Hero splash, onboarding |
-| **Display LG** | 2.5rem (40px) | 1.15 | -0.025em | 700 | Section heroes |
-| **Display MD** | 2rem (32px) | 1.2 | -0.02em | 600 | Modal titles, large fares |
-| **Heading LG** | 1.5rem (24px) | 1.3 | -0.015em | 600 | Screen titles |
-| **Heading MD** | 1.25rem (20px) | 1.35 | -0.01em | 600 | Card headers, driver names |
-| **Heading SM** | 1.125rem (18px) | 1.4 | -0.01em | 600 | Subheadings |
-| **Body LG** | 1rem (16px) | 1.6 | 0 | 400 | Primary content |
-| **Body MD** | 0.875rem (14px) | 1.5 | 0 | 400 | Default body text |
-| **Body SM** | 0.8125rem (13px) | 1.5 | 0 | 400 | Secondary content |
-| **Label** | 0.75rem (12px) | 1.4 | 0.02em | 500 | Input labels, badges |
-| **Caption** | 0.6875rem (11px) | 1.4 | 0.02em | 400 | Timestamps, legal text |
+### Typography Guidelines
+
+- **Minimum mobile text:** 16px (Body MD) for readability in bright sunlight
+- **Price displays:** Use Heading MD or larger, always bold
+- **Button text:** Label style, never smaller than 15px
+- **Monospace:** Use for OTP inputs, ride codes, and fare breakdowns
 
 ---
 
 ## Spacing
 
-**Base Unit:** 4px grid
+**Base Unit:** 4px
 
-| Token | Value | CSS Var | Common Use |
-|-------|-------|---------|------------|
-| `xs` | 4px | `--spacing-xs` | Icon padding, tight gaps |
-| `sm` | 8px | `--spacing-sm` | Button padding, list gaps |
-| `md` | 16px | `--spacing-md` | Card padding, section gaps |
-| `lg` | 24px | `--spacing-lg` | Screen padding, major gaps |
-| `xl` | 32px | `--spacing-xl` | Section spacing |
-| `2xl` | 48px | `--spacing-2xl` | Large section breaks |
-| `3xl` | 64px | `--spacing-3xl` | Hero spacing |
-| `4xl` | 96px | `--spacing-4xl` | Major layout gaps |
-| `5xl` | 128px | `--spacing-5xl` | Full-page breathing room |
+| Token | Value | CSS Variable | Usage |
+|-------|-------|--------------|-------|
+| xs | 4px | `--spacing-xs` | Tight element gaps, icon padding |
+| sm | 8px | `--spacing-sm` | Inline spacing, form gaps |
+| md | 16px | `--spacing-md` | Standard padding, card internal |
+| lg | 24px | `--spacing-lg` | Section spacing, card gaps |
+| xl | 32px | `--spacing-xl` | Major section breaks |
+| 2xl | 48px | `--spacing-2xl` | Page section gaps |
+| 3xl | 64px | `--spacing-3xl` | Hero spacing |
+| 4xl | 96px | `--spacing-4xl` | Major layout gaps |
+| 5xl | 128px | `--spacing-5xl` | Maximum section spacing |
 
-### Component Spacing Presets
+### Touch Target Requirements
 
-- **Card Padding:** 16px (`--spacing-md`)
-- **Section Gap:** 32px (`--spacing-xl`)
-- **Input Padding:** 8px vertical, 16px horizontal
-- **Button Padding:** 12px vertical, 24px horizontal
-- **Screen Edge Margin:** 16px
+- **Minimum touch target:** 48px × 48px
+- **Recommended button height:** 48-56px
+- **Tap area padding:** Extend clickable area beyond visual bounds
 
 ---
 
 ## Border Radius
 
-| Token | Value | CSS Var | Use Case |
-|-------|-------|---------|----------|
-| `sm` | 4px | `--radius-sm` | Subtle rounding, tags |
-| `md` | 8px | `--radius-md` | Inputs, small buttons |
-| `lg` | 12px | `--radius-lg` | Primary buttons, chips |
-| `xl` | 16px | `--radius-xl` | Cards, modals |
-| `2xl` | 24px | `--radius-2xl` | Bottom sheets |
-| `full` | 9999px | `--radius-full` | Pills, avatars, FABs |
+| Token | Value | Usage |
+|-------|-------|-------|
+| sm | 4px | Small badges, tags |
+| md | 8px | Inputs, small cards |
+| lg | 12px | Buttons, medium cards |
+| xl | 16px | Large cards, modals |
+| 2xl | 24px | Feature cards, hero elements |
+| full | 9999px | Pills, avatars, circular buttons |
 
-### Component Defaults
+### Component-Specific Radii
 
-- **Buttons:** 12px (`--radius-lg`)
-- **Cards:** 16px (`--radius-xl`)
-- **Inputs:** 8px (`--radius-md`)
-- **Chips/Tags:** 9999px (`--radius-full`)
-- **Avatars:** 9999px (`--radius-full`)
+- **Buttons:** 12px (lg) — friendly but purposeful
+- **Cards:** 16px (xl) — approachable containers
+- **Inputs:** 8px (md) — subtle, focused
+- **Avatars:** Full — always circular
+- **Status badges:** Full — pill-shaped
 
 ---
 
@@ -130,121 +124,124 @@
 
 ### Duration
 
-| Token | Value | CSS Var | Use Case |
-|-------|-------|---------|----------|
-| `fast` | 150ms | `--duration-fast` | Micro-interactions, toggles, color changes |
-| `normal` | 250ms | `--duration-normal` | Standard transitions, cards, modals |
-| `slow` | 400ms | `--duration-slow` | Page transitions, complex animations |
-| `slower` | 600ms | `--duration-slower` | Celebratory moments, onboarding |
+| Token | Value | Usage |
+|-------|-------|-------|
+| instant | 50ms | Color changes, micro-feedback |
+| fast | 150ms | Button presses, toggles, hovers |
+| normal | 250ms | Panel transitions, fades |
+| slow | 400ms | Page transitions, modals |
+| slower | 600ms | Complex animations, onboarding |
 
 ### Easing
 
-| Token | Value | Use Case |
-|-------|-------|----------|
-| `ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Exit animations, most UI transitions |
-| `ease-in-out` | `cubic-bezier(0.65, 0, 0.35, 1)` | Symmetrical animations, loaders |
-| `spring` | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Playful bounces, button presses |
-| `bounce` | `cubic-bezier(0.68, -0.55, 0.265, 1.55)` | Attention-grabbing, celebrations |
+| Token | Curve | Usage |
+|-------|-------|-------|
+| ease-out | `cubic-bezier(0.16, 1, 0.3, 1)` | Most UI transitions |
+| ease-in-out | `cubic-bezier(0.65, 0, 0.35, 1)` | Bi-directional movement |
+| spring | `cubic-bezier(0.34, 1.56, 0.64, 1)` | Playful bounces, confirmations |
 
-### Animation Guidelines
+### Motion Guidelines
 
-1. **Map pin drops:** `spring` easing, 400ms
-2. **Bottom sheet slides:** `ease-out`, 300ms
-3. **Button press feedback:** `spring`, 150ms scale to 0.97
-4. **Loading pulse:** `ease-in-out`, 1200ms infinite
-5. **Success checkmark:** `bounce`, 500ms with slight delay
+- **Button feedback:** fast + ease-out
+- **Modal entrance:** normal + ease-out
+- **Success animations:** normal + spring
+- **Reduced motion:** Respect `prefers-reduced-motion`
+
+---
+
+## Shadows
+
+| Token | Value | Usage |
+|-------|-------|-------|
+| sm | `0 1px 2px rgba(0,0,0,0.4)` | Subtle lift, inputs |
+| md | `0 4px 8px rgba(0,0,0,0.5)` | Cards, dropdowns |
+| lg | `0 12px 24px rgba(0,0,0,0.6)` | Modals, popovers |
+| xl | `0 24px 48px rgba(0,0,0,0.7)` | Hero elements |
+| glow-green | `0 0 24px rgba(0,177,64,0.4)` | Active states, CTAs |
+| glow-gold | `0 0 24px rgba(245,158,11,0.4)` | Promotions, premium |
 
 ---
 
 ## Design Principles
 
-### 1. Dark by Default
-Nigerian riders often travel at night and use phones in bright sunlight. Our dark theme reduces eye strain, saves battery on OLED screens, and makes the green brand color pop with authority. Light mode is secondary.
+### 1. Sunlight-Ready Contrast
 
-### 2. Naira-First Clarity
-Money is never hidden. Fares show upfront in bold, unmistakable Nigerian Naira (₦). No currency conversion confusion, no surprise charges. Cash is king, so "Pay with Cash" is always the default payment option.
+Every color combination must remain legible under direct Lagos sunlight. Dark backgrounds with bright text, never subtle grays on white. Test everything outdoors.
 
-### 3. Respect the Network
-Design for 2G/3G realities. Every screen must be usable with slow connections. Optimistic UI updates, skeleton loaders, and offline states aren't edge cases — they're the baseline. Images are lazy-loaded and compressed.
+### 2. Thumb-First Interaction
 
-### 4. Local Vehicle Hierarchy
-Okada and Keke aren't afterthoughts — they're primary transport modes. UI treats them with equal dignity to cars. Vehicle illustrations are distinctly Nigerian, not generic sedan silhouettes.
+Primary actions live in the thumb zone. Every button, every swipe target is sized for one-handed use while standing in a moving vehicle. 48px minimum, no exceptions.
 
----
+### 3. Connection-Resilient Design
 
-## Elevation & Shadows
+Assume the network is unreliable. Show optimistic states, provide offline feedback, and design loading states that feel intentional rather than broken. Every screen should be useful even when data is slow.
 
-| Level | CSS Var | Use Case |
-|-------|---------|----------|
-| `sm` | `--shadow-sm` | Subtle cards, inputs |
-| `md` | `--shadow-md` | Elevated cards, dropdowns |
-| `lg` | `--shadow-lg` | Modals, bottom sheets |
-| `xl` | `--shadow-xl` | Full-screen overlays |
-| `glow-brand` | `--shadow-glow-brand` | Primary CTA emphasis |
+### 4. Go Green Energy
 
----
-
-## Z-Index Scale
-
-| Layer | Value | Use Case |
-|-------|-------|----------|
-| Base | 0 | Default content |
-| Dropdown | 100 | Menus, popovers |
-| Sticky | 200 | Sticky headers, FABs |
-| Overlay | 300 | Background overlays |
-| Modal | 400 | Modals, dialogs |
-| Toast | 500 | Notifications |
-| Tooltip | 600 | Tooltips (topmost) |
-
----
-
-## Mobile-Specific Guidelines (360px Android)
-
-- **Safe areas:** Respect 16px horizontal margins
-- **Touch targets:** Minimum 48×48px tap areas
-- **Bottom sheet handles:** 4px height, 32px width, centered
-- **Map UI:** Pin centered slightly above screen middle (40% from top)
-- **Keyboard avoidance:** Inputs scroll into view with 16px buffer
+The Go Green color isn't just a brand choice — it's a signal of action. When users see green, something is happening, moving, confirmed. Reserve it for primary CTAs and success states only.
 
 ---
 
 ## Usage Examples
 
+### Button Hierarchy
+
 ```css
-/* Primary CTA Button */
+/* Primary CTA */
 .btn-primary {
-  background: var(--color-brand-primary);
-  color: var(--color-gray-950);
-  padding: var(--spacing-sm) var(--spacing-lg);
+  background: var(--color-go-green);
+  color: var(--color-neutral-950);
+  min-height: var(--spacing-touch-min);
   border-radius: var(--radius-button);
-  font-size: var(--font-size-body-md);
-  font-weight: 600;
-  transition: var(--transition-colors);
+  font: var(--text-label-weight) var(--text-label-size) var(--font-sans);
 }
 
-.btn-primary:active {
-  background: var(--color-brand-primary-dark);
-  transform: scale(0.97);
-  transition: var(--transition-transform);
+/* Secondary */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid var(--color-border-default);
+  color: var(--color-text-primary);
 }
 
-/* Ride Option Card */
-.ride-card {
-  background: var(--color-surface-card);
-  border: 1px solid var(--color-border-primary);
+/* Loading State */
+.btn-loading {
+  background: var(--color-neutral-700);
+  pointer-events: none;
+}
+```
+
+### Card Component
+
+```css
+.card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-card);
   padding: var(--spacing-md);
   box-shadow: var(--shadow-sm);
 }
+```
 
-.ride-card.selected {
-  border-color: var(--color-brand-primary);
-  box-shadow: var(--shadow-glow-brand);
-}
+### Status Indicators
+
+```css
+.status-searching { color: var(--color-naija-gold); }
+.status-confirmed { color: var(--color-go-green); }
+.status-cancelled { color: var(--color-alert-red); }
+.status-completed { color: var(--color-trust-blue); }
 ```
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** Sprint 1  
-**Maintained by:** Kwatmi's Studio Design Team
+## Accessibility
+
+- **Contrast ratio:** Minimum 4.5:1 for body text, 3:1 for large text
+- **Focus indicators:** 2px Go Green outline on all interactive elements
+- **Touch targets:** 48px minimum in all directions
+- **Reduced motion:** Honor system preferences
+- **Screen reader:** All icons paired with labels or aria-label
+
+---
+
+*Last updated: Sprint 1*  
+*Maintained by: Kwatmi Design Team*

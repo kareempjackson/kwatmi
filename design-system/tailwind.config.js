@@ -2,82 +2,134 @@
 module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
-    './components/**/*.{js,jsx,ts,tsx}',
     './app/**/*.{js,jsx,ts,tsx}',
+    './components/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
       colors: {
-        brand: {
-          DEFAULT: 'var(--color-brand-primary)',
-          light: 'var(--color-brand-primary-light)',
-          dark: 'var(--color-brand-primary-dark)',
-          muted: 'var(--color-brand-primary-muted)',
+        // Brand Colors
+        'go-green': {
+          DEFAULT: 'var(--color-go-green)',
+          light: 'var(--color-go-green-light)',
+          dark: 'var(--color-go-green-dark)',
         },
-        accent: {
-          gold: 'var(--color-accent-gold)',
-          'gold-light': 'var(--color-accent-gold-light)',
+        'naija-gold': 'var(--color-naija-gold)',
+        'alert-red': 'var(--color-alert-red)',
+        'trust-blue': 'var(--color-trust-blue)',
+        
+        // Semantic
+        success: 'var(--color-success)',
+        warning: 'var(--color-warning)',
+        error: 'var(--color-error)',
+        info: 'var(--color-info)',
+        
+        // Neutrals
+        neutral: {
+          950: 'var(--color-neutral-950)',
+          900: 'var(--color-neutral-900)',
+          800: 'var(--color-neutral-800)',
+          700: 'var(--color-neutral-700)',
+          600: 'var(--color-neutral-600)',
+          500: 'var(--color-neutral-500)',
+          400: 'var(--color-neutral-400)',
+          300: 'var(--color-neutral-300)',
+          200: 'var(--color-neutral-200)',
+          100: 'var(--color-neutral-100)',
+          50: 'var(--color-neutral-50)',
         },
-        semantic: {
-          success: 'var(--color-semantic-success)',
-          warning: 'var(--color-semantic-warning)',
-          error: 'var(--color-semantic-error)',
-          info: 'var(--color-semantic-info)',
-        },
+        
+        // Surfaces
         surface: {
-          elevated: 'var(--color-surface-elevated)',
-          card: 'var(--color-surface-card)',
-          overlay: 'var(--color-surface-overlay)',
-        },
-        gray: {
-          50: 'var(--color-gray-50)',
-          100: 'var(--color-gray-100)',
-          200: 'var(--color-gray-200)',
-          300: 'var(--color-gray-300)',
-          400: 'var(--color-gray-400)',
-          500: 'var(--color-gray-500)',
-          600: 'var(--color-gray-600)',
-          700: 'var(--color-gray-700)',
-          800: 'var(--color-gray-800)',
-          850: 'var(--color-gray-850)',
-          900: 'var(--color-gray-900)',
-          950: 'var(--color-gray-950)',
-        },
-        bg: {
           primary: 'var(--color-bg-primary)',
           secondary: 'var(--color-bg-secondary)',
-          tertiary: 'var(--color-bg-tertiary)',
+          elevated: 'var(--color-bg-elevated)',
+          overlay: 'var(--color-bg-overlay)',
         },
+        
+        // Text
         text: {
           primary: 'var(--color-text-primary)',
           secondary: 'var(--color-text-secondary)',
-          tertiary: 'var(--color-text-tertiary)',
-          disabled: 'var(--color-text-disabled)',
+          muted: 'var(--color-text-muted)',
+          inverted: 'var(--color-text-inverted)',
         },
+        
+        // Borders
         border: {
-          primary: 'var(--color-border-primary)',
-          secondary: 'var(--color-border-secondary)',
+          subtle: 'var(--color-border-subtle)',
+          DEFAULT: 'var(--color-border-default)',
+          strong: 'var(--color-border-strong)',
           focus: 'var(--color-border-focus)',
         },
       },
+      
       fontFamily: {
-        sans: ['var(--font-family-sans)'],
-        mono: ['var(--font-family-mono)'],
+        sans: ['var(--font-sans)'],
+        mono: ['var(--font-mono)'],
       },
+      
       fontSize: {
-        'display-xl': ['var(--font-size-display-xl)', { lineHeight: 'var(--line-height-display-xl)', letterSpacing: 'var(--letter-spacing-display-xl)', fontWeight: 'var(--font-weight-display-xl)' }],
-        'display-lg': ['var(--font-size-display-lg)', { lineHeight: 'var(--line-height-display-lg)', letterSpacing: 'var(--letter-spacing-display-lg)', fontWeight: 'var(--font-weight-display-lg)' }],
-        'display-md': ['var(--font-size-display-md)', { lineHeight: 'var(--line-height-display-md)', letterSpacing: 'var(--letter-spacing-display-md)', fontWeight: 'var(--font-weight-display-md)' }],
-        'heading-lg': ['var(--font-size-heading-lg)', { lineHeight: 'var(--line-height-heading-lg)', letterSpacing: 'var(--letter-spacing-heading-lg)', fontWeight: 'var(--font-weight-heading-lg)' }],
-        'heading-md': ['var(--font-size-heading-md)', { lineHeight: 'var(--line-height-heading-md)', letterSpacing: 'var(--letter-spacing-heading-md)', fontWeight: 'var(--font-weight-heading-md)' }],
-        'heading-sm': ['var(--font-size-heading-sm)', { lineHeight: 'var(--line-height-heading-sm)', letterSpacing: 'var(--letter-spacing-heading-sm)', fontWeight: 'var(--font-weight-heading-sm)' }],
-        'body-lg': ['var(--font-size-body-lg)', { lineHeight: 'var(--line-height-body-lg)', letterSpacing: 'var(--letter-spacing-body-lg)', fontWeight: 'var(--font-weight-body-lg)' }],
-        'body-md': ['var(--font-size-body-md)', { lineHeight: 'var(--line-height-body-md)', letterSpacing: 'var(--letter-spacing-body-md)', fontWeight: 'var(--font-weight-body-md)' }],
-        'body-sm': ['var(--font-size-body-sm)', { lineHeight: 'var(--line-height-body-sm)', letterSpacing: 'var(--letter-spacing-body-sm)', fontWeight: 'var(--font-weight-body-sm)' }],
-        'label': ['var(--font-size-label)', { lineHeight: 'var(--line-height-label)', letterSpacing: 'var(--letter-spacing-label)', fontWeight: 'var(--font-weight-label)' }],
-        'caption': ['var(--font-size-caption)', { lineHeight: 'var(--line-height-caption)', letterSpacing: 'var(--letter-spacing-caption)', fontWeight: 'var(--font-weight-caption)' }],
+        'display-xl': ['var(--text-display-xl-size)', {
+          lineHeight: 'var(--text-display-xl-line)',
+          letterSpacing: 'var(--text-display-xl-spacing)',
+          fontWeight: 'var(--text-display-xl-weight)',
+        }],
+        'display-lg': ['var(--text-display-lg-size)', {
+          lineHeight: 'var(--text-display-lg-line)',
+          letterSpacing: 'var(--text-display-lg-spacing)',
+          fontWeight: 'var(--text-display-lg-weight)',
+        }],
+        'display-md': ['var(--text-display-md-size)', {
+          lineHeight: 'var(--text-display-md-line)',
+          letterSpacing: 'var(--text-display-md-spacing)',
+          fontWeight: 'var(--text-display-md-weight)',
+        }],
+        'heading-lg': ['var(--text-heading-lg-size)', {
+          lineHeight: 'var(--text-heading-lg-line)',
+          letterSpacing: 'var(--text-heading-lg-spacing)',
+          fontWeight: 'var(--text-heading-lg-weight)',
+        }],
+        'heading-md': ['var(--text-heading-md-size)', {
+          lineHeight: 'var(--text-heading-md-line)',
+          letterSpacing: 'var(--text-heading-md-spacing)',
+          fontWeight: 'var(--text-heading-md-weight)',
+        }],
+        'heading-sm': ['var(--text-heading-sm-size)', {
+          lineHeight: 'var(--text-heading-sm-line)',
+          letterSpacing: 'var(--text-heading-sm-spacing)',
+          fontWeight: 'var(--text-heading-sm-weight)',
+        }],
+        'body-lg': ['var(--text-body-lg-size)', {
+          lineHeight: 'var(--text-body-lg-line)',
+          letterSpacing: 'var(--text-body-lg-spacing)',
+          fontWeight: 'var(--text-body-lg-weight)',
+        }],
+        'body-md': ['var(--text-body-md-size)', {
+          lineHeight: 'var(--text-body-md-line)',
+          letterSpacing: 'var(--text-body-md-spacing)',
+          fontWeight: 'var(--text-body-md-weight)',
+        }],
+        'body-sm': ['var(--text-body-sm-size)', {
+          lineHeight: 'var(--text-body-sm-line)',
+          letterSpacing: 'var(--text-body-sm-spacing)',
+          fontWeight: 'var(--text-body-sm-weight)',
+        }],
+        'label': ['var(--text-label-size)', {
+          lineHeight: 'var(--text-label-line)',
+          letterSpacing: 'var(--text-label-spacing)',
+          fontWeight: 'var(--text-label-weight)',
+        }],
+        'caption': ['var(--text-caption-size)', {
+          lineHeight: 'var(--text-caption-line)',
+          letterSpacing: 'var(--text-caption-spacing)',
+          fontWeight: 'var(--text-caption-weight)',
+        }],
       },
+      
       spacing: {
+        'px': 'var(--spacing-px)',
+        '0': 'var(--spacing-0)',
         'xs': 'var(--spacing-xs)',
         'sm': 'var(--spacing-sm)',
         'md': 'var(--spacing-md)',
@@ -87,7 +139,9 @@ module.exports = {
         '3xl': 'var(--spacing-3xl)',
         '4xl': 'var(--spacing-4xl)',
         '5xl': 'var(--spacing-5xl)',
+        'touch': 'var(--spacing-touch-min)',
       },
+      
       borderRadius: {
         'sm': 'var(--radius-sm)',
         'md': 'var(--radius-md)',
@@ -98,8 +152,17 @@ module.exports = {
         'button': 'var(--radius-button)',
         'card': 'var(--radius-card)',
         'input': 'var(--radius-input)',
-        'chip': 'var(--radius-chip)',
       },
+      
+      boxShadow: {
+        'sm': 'var(--shadow-sm)',
+        'md': 'var(--shadow-md)',
+        'lg': 'var(--shadow-lg)',
+        'xl': 'var(--shadow-xl)',
+        'glow-green': 'var(--shadow-glow-green)',
+        'glow-gold': 'var(--shadow-glow-gold)',
+      },
+      
       transitionDuration: {
         'instant': 'var(--duration-instant)',
         'fast': 'var(--duration-fast)',
@@ -107,26 +170,30 @@ module.exports = {
         'slow': 'var(--duration-slow)',
         'slower': 'var(--duration-slower)',
       },
+      
       transitionTimingFunction: {
-        'out': 'var(--ease-out)',
-        'in-out': 'var(--ease-in-out)',
+        'ease-out': 'var(--ease-out)',
+        'ease-in-out': 'var(--ease-in-out)',
         'spring': 'var(--ease-spring)',
-        'bounce': 'var(--ease-bounce)',
       },
-      boxShadow: {
-        'sm': 'var(--shadow-sm)',
-        'md': 'var(--shadow-md)',
-        'lg': 'var(--shadow-lg)',
-        'xl': 'var(--shadow-xl)',
-        'glow-brand': 'var(--shadow-glow-brand)',
-      },
+      
       zIndex: {
+        'base': 'var(--z-base)',
+        'elevated': 'var(--z-elevated)',
         'dropdown': 'var(--z-dropdown)',
         'sticky': 'var(--z-sticky)',
         'overlay': 'var(--z-overlay)',
         'modal': 'var(--z-modal)',
         'toast': 'var(--z-toast)',
         'tooltip': 'var(--z-tooltip)',
+      },
+      
+      minHeight: {
+        'touch': 'var(--spacing-touch-min)',
+      },
+      
+      minWidth: {
+        'touch': 'var(--spacing-touch-min)',
       },
     },
   },
