@@ -1,0 +1,206 @@
+:root {
+  /* ==============================================
+     KWATMI'S STUDIO DESIGN TOKENS
+     Nigerian Ride-Hailing App — Mobile First
+     ============================================== */
+
+  /* ---------------------------------------------
+     COLORS — Primary Palette
+     --------------------------------------------- */
+  --color-brand-primary: #00A86B;
+  --color-brand-primary-light: #00C77B;
+  --color-brand-primary-dark: #008F5B;
+  --color-brand-primary-muted: rgba(0, 168, 107, 0.15);
+  
+  --color-accent-gold: #F5A623;
+  --color-accent-gold-light: #FFB84D;
+  
+  --color-semantic-success: #00A86B;
+  --color-semantic-warning: #F5A623;
+  --color-semantic-error: #E53935;
+  --color-semantic-info: #2196F3;
+  
+  --color-surface-elevated: #1A1A1A;
+  --color-surface-card: #242424;
+  --color-surface-overlay: rgba(0, 0, 0, 0.7);
+  
+  /* ---------------------------------------------
+     COLORS — Neutral Scale (Dark Theme)
+     --------------------------------------------- */
+  --color-gray-950: #0A0A0A;
+  --color-gray-900: #121212;
+  --color-gray-850: #1A1A1A;
+  --color-gray-800: #242424;
+  --color-gray-700: #333333;
+  --color-gray-600: #4D4D4D;
+  --color-gray-500: #666666;
+  --color-gray-400: #808080;
+  --color-gray-300: #A3A3A3;
+  --color-gray-200: #C4C4C4;
+  --color-gray-100: #E5E5E5;
+  --color-gray-50: #F5F5F5;
+  
+  /* Semantic Background/Foreground */
+  --color-bg-primary: var(--color-gray-950);
+  --color-bg-secondary: var(--color-gray-900);
+  --color-bg-tertiary: var(--color-gray-850);
+  
+  --color-text-primary: var(--color-gray-50);
+  --color-text-secondary: var(--color-gray-300);
+  --color-text-tertiary: var(--color-gray-500);
+  --color-text-disabled: var(--color-gray-600);
+  
+  --color-border-primary: var(--color-gray-800);
+  --color-border-secondary: var(--color-gray-700);
+  --color-border-focus: var(--color-brand-primary);
+
+  /* ---------------------------------------------
+     TYPOGRAPHY — Scale
+     --------------------------------------------- */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+  
+  /* Display XL — Hero Headlines */
+  --font-size-display-xl: 3.5rem;
+  --line-height-display-xl: 1.1;
+  --letter-spacing-display-xl: -0.03em;
+  --font-weight-display-xl: 700;
+  
+  /* Display LG — Section Headers */
+  --font-size-display-lg: 2.5rem;
+  --line-height-display-lg: 1.15;
+  --letter-spacing-display-lg: -0.025em;
+  --font-weight-display-lg: 700;
+  
+  /* Display MD — Large Titles */
+  --font-size-display-md: 2rem;
+  --line-height-display-md: 1.2;
+  --letter-spacing-display-md: -0.02em;
+  --font-weight-display-md: 600;
+  
+  /* Heading LG */
+  --font-size-heading-lg: 1.5rem;
+  --line-height-heading-lg: 1.3;
+  --letter-spacing-heading-lg: -0.015em;
+  --font-weight-heading-lg: 600;
+  
+  /* Heading MD */
+  --font-size-heading-md: 1.25rem;
+  --line-height-heading-md: 1.35;
+  --letter-spacing-heading-md: -0.01em;
+  --font-weight-heading-md: 600;
+  
+  /* Heading SM */
+  --font-size-heading-sm: 1.125rem;
+  --line-height-heading-sm: 1.4;
+  --letter-spacing-heading-sm: -0.01em;
+  --font-weight-heading-sm: 600;
+  
+  /* Body LG */
+  --font-size-body-lg: 1rem;
+  --line-height-body-lg: 1.6;
+  --letter-spacing-body-lg: 0;
+  --font-weight-body-lg: 400;
+  
+  /* Body MD — Default */
+  --font-size-body-md: 0.875rem;
+  --line-height-body-md: 1.5;
+  --letter-spacing-body-md: 0;
+  --font-weight-body-md: 400;
+  
+  /* Body SM */
+  --font-size-body-sm: 0.8125rem;
+  --line-height-body-sm: 1.5;
+  --letter-spacing-body-sm: 0;
+  --font-weight-body-sm: 400;
+  
+  /* Label */
+  --font-size-label: 0.75rem;
+  --line-height-label: 1.4;
+  --letter-spacing-label: 0.02em;
+  --font-weight-label: 500;
+  
+  /* Caption */
+  --font-size-caption: 0.6875rem;
+  --line-height-caption: 1.4;
+  --letter-spacing-caption: 0.02em;
+  --font-weight-caption: 400;
+
+  /* ---------------------------------------------
+     SPACING — 4px Base Grid
+     --------------------------------------------- */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  --spacing-3xl: 64px;
+  --spacing-4xl: 96px;
+  --spacing-5xl: 128px;
+  
+  /* Component-specific spacing */
+  --spacing-card-padding: var(--spacing-md);
+  --spacing-section-gap: var(--spacing-xl);
+  --spacing-input-padding-x: var(--spacing-md);
+  --spacing-input-padding-y: var(--spacing-sm);
+  --spacing-button-padding-x: var(--spacing-lg);
+  --spacing-button-padding-y: var(--spacing-sm);
+
+  /* ---------------------------------------------
+     BORDER RADIUS
+     --------------------------------------------- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+  
+  /* Component-specific */
+  --radius-button: var(--radius-lg);
+  --radius-card: var(--radius-xl);
+  --radius-input: var(--radius-md);
+  --radius-chip: var(--radius-full);
+  --radius-avatar: var(--radius-full);
+
+  /* ---------------------------------------------
+     MOTION — Duration & Easing
+     --------------------------------------------- */
+  --duration-instant: 0ms;
+  --duration-fast: 150ms;
+  --duration-normal: 250ms;
+  --duration-slow: 400ms;
+  --duration-slower: 600ms;
+  
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  
+  /* Presets */
+  --transition-colors: color var(--duration-fast) var(--ease-out), background-color var(--duration-fast) var(--ease-out), border-color var(--duration-fast) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-spring);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* ---------------------------------------------
+     SHADOWS — Elevation System
+     --------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4), 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.5), 0 4px 8px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6), 0 8px 16px rgba(0, 0, 0, 0.4);
+  --shadow-glow-brand: 0 0 20px rgba(0, 168, 107, 0.4), 0 0 40px rgba(0, 168, 107, 0.2);
+
+  /* ---------------------------------------------
+     Z-INDEX — Layering Scale
+     --------------------------------------------- */
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}
