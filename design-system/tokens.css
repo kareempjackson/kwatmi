@@ -1,147 +1,156 @@
 :root {
-  /* ========================================
-   * KWATMI DESIGN TOKENS
-   * A mobile-first design system for Nigerian ride-hailing
-   * Optimized for outdoor visibility and poor connectivity
-   * ======================================== */
+  /* ===========================================
+     KWATMI DESIGN TOKENS
+     Mobile-first ride-sharing design system
+     Optimized for Nigerian market conditions
+     =========================================== */
 
-  /* ----------------------------------------
-   * COLORS — Primary Palette
-   * Green primary for 'Go Nigeria' energy
-   * High contrast for bright sunlight readability
-   * ---------------------------------------- */
+  /* -------------------------------------------
+     COLORS — Primary Palette
+     ------------------------------------------- */
   
-  /* Brand Colors */
-  --color-go-green: #00B140;
-  --color-go-green-light: #4ADE80;
-  --color-go-green-dark: #15803D;
-  --color-naija-gold: #F59E0B;
-  --color-alert-red: #EF4444;
-  --color-trust-blue: #3B82F6;
-  --color-surface-dark: #0A0F0D;
-  --color-surface-elevated: #141A17;
+  /* Go Green — Primary brand, action, success */
+  --color-go-green: #00C853;
+  --color-go-green-light: #69F0AE;
+  --color-go-green-dark: #00A344;
   
-  /* Neutral Scale — Dark to Light */
-  --color-neutral-950: #0A0F0D;
-  --color-neutral-900: #141A17;
-  --color-neutral-800: #1F2923;
-  --color-neutral-700: #2D3B33;
-  --color-neutral-600: #3D5147;
-  --color-neutral-500: #5E7A6D;
-  --color-neutral-400: #8BA498;
-  --color-neutral-300: #B8CABE;
-  --color-neutral-200: #D9E5DC;
-  --color-neutral-100: #ECF2EE;
-  --color-neutral-50: #F7FAF8;
+  /* Lagos Gold — Premium, highlights, warnings */
+  --color-lagos-gold: #FFB300;
+  --color-lagos-gold-light: #FFE082;
+  --color-lagos-gold-dark: #FF8F00;
   
-  /* Semantic Colors */
-  --color-success: var(--color-go-green);
-  --color-warning: var(--color-naija-gold);
-  --color-error: var(--color-alert-red);
-  --color-info: var(--color-trust-blue);
+  /* Okada Orange — Secondary actions, vehicle type indicator */
+  --color-okada-orange: #FF6D00;
   
-  /* Background & Surface */
+  /* Keke Yellow — Vehicle type indicator */
+  --color-keke-yellow: #FFC400;
+  
+  /* Alert Red — Errors, cancellations, urgent */
+  --color-alert-red: #FF3D00;
+  --color-alert-red-light: #FF8A65;
+  
+  /* Sky Blue — Info, links, secondary CTA */
+  --color-sky-blue: #00B0FF;
+  
+  /* -------------------------------------------
+     COLORS — Neutral Scale (Dark-first)
+     ------------------------------------------- */
+  --color-neutral-950: #0A0A0B;
+  --color-neutral-900: #121214;
+  --color-neutral-800: #1E1E21;
+  --color-neutral-700: #2C2C31;
+  --color-neutral-600: #3D3D44;
+  --color-neutral-500: #5C5C66;
+  --color-neutral-400: #8A8A96;
+  --color-neutral-300: #B3B3BD;
+  --color-neutral-200: #D4D4DB;
+  --color-neutral-100: #EBEBF0;
+  --color-neutral-50: #F7F7F9;
+  --color-white: #FFFFFF;
+  
+  /* -------------------------------------------
+     COLORS — Semantic Aliases
+     ------------------------------------------- */
   --color-bg-primary: var(--color-neutral-950);
   --color-bg-secondary: var(--color-neutral-900);
-  --color-bg-elevated: var(--color-surface-elevated);
-  --color-bg-overlay: rgba(10, 15, 13, 0.85);
+  --color-bg-tertiary: var(--color-neutral-800);
+  --color-bg-elevated: var(--color-neutral-700);
   
-  /* Text Colors */
-  --color-text-primary: var(--color-neutral-50);
-  --color-text-secondary: var(--color-neutral-400);
-  --color-text-muted: var(--color-neutral-500);
-  --color-text-inverted: var(--color-neutral-950);
+  --color-text-primary: var(--color-white);
+  --color-text-secondary: var(--color-neutral-300);
+  --color-text-tertiary: var(--color-neutral-500);
+  --color-text-disabled: var(--color-neutral-600);
+  --color-text-inverse: var(--color-neutral-950);
   
-  /* Border Colors */
-  --color-border-subtle: var(--color-neutral-800);
   --color-border-default: var(--color-neutral-700);
-  --color-border-strong: var(--color-neutral-600);
-  --color-border-focus: var(--color-go-green);
-
-  /* ----------------------------------------
-   * TYPOGRAPHY
-   * Large, readable text for outdoor use
-   * Minimum 16px base for mobile
-   * ---------------------------------------- */
+  --color-border-subtle: var(--color-neutral-800);
+  --color-border-strong: var(--color-neutral-500);
   
-  /* Font Families */
-  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  --color-status-success: var(--color-go-green);
+  --color-status-warning: var(--color-lagos-gold);
+  --color-status-error: var(--color-alert-red);
+  --color-status-info: var(--color-sky-blue);
   
-  /* Display XL — Hero headlines */
-  --text-display-xl-size: 3.5rem;
+  /* -------------------------------------------
+     TYPOGRAPHY — Font Families
+     ------------------------------------------- */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
+  
+  /* -------------------------------------------
+     TYPOGRAPHY — Scale
+     Mobile-first with large tap targets
+     ------------------------------------------- */
+  
+  /* Display XL — Hero text, splash screens */
+  --text-display-xl: 3rem;
   --text-display-xl-line: 1.1;
-  --text-display-xl-spacing: -0.03em;
+  --text-display-xl-tracking: -0.03em;
   --text-display-xl-weight: 700;
   
-  /* Display LG — Section headers */
-  --text-display-lg-size: 2.75rem;
+  /* Display LG — Section heroes */
+  --text-display-lg: 2.25rem;
   --text-display-lg-line: 1.15;
-  --text-display-lg-spacing: -0.025em;
+  --text-display-lg-tracking: -0.025em;
   --text-display-lg-weight: 700;
   
   /* Display MD — Page titles */
-  --text-display-md-size: 2.25rem;
+  --text-display-md: 1.75rem;
   --text-display-md-line: 1.2;
-  --text-display-md-spacing: -0.02em;
+  --text-display-md-tracking: -0.02em;
   --text-display-md-weight: 600;
   
-  /* Heading LG — Major sections */
-  --text-heading-lg-size: 1.75rem;
-  --text-heading-lg-line: 1.25;
-  --text-heading-lg-spacing: -0.015em;
+  /* Heading LG — Card headers, modal titles */
+  --text-heading-lg: 1.375rem;
+  --text-heading-lg-line: 1.3;
+  --text-heading-lg-tracking: -0.015em;
   --text-heading-lg-weight: 600;
   
   /* Heading MD — Subsections */
-  --text-heading-md-size: 1.375rem;
-  --text-heading-md-line: 1.3;
-  --text-heading-md-spacing: -0.01em;
+  --text-heading-md: 1.125rem;
+  --text-heading-md-line: 1.35;
+  --text-heading-md-tracking: -0.01em;
   --text-heading-md-weight: 600;
   
-  /* Heading SM — Card titles */
-  --text-heading-sm-size: 1.125rem;
-  --text-heading-sm-line: 1.35;
-  --text-heading-sm-spacing: -0.005em;
+  /* Heading SM — List headers, small titles */
+  --text-heading-sm: 1rem;
+  --text-heading-sm-line: 1.4;
+  --text-heading-sm-tracking: 0;
   --text-heading-sm-weight: 600;
   
-  /* Body LG — Emphasized body text */
-  --text-body-lg-size: 1.125rem;
-  --text-body-lg-line: 1.6;
-  --text-body-lg-spacing: 0em;
+  /* Body LG — Primary content, outdoor readable */
+  --text-body-lg: 1.125rem;
+  --text-body-lg-line: 1.5;
+  --text-body-lg-tracking: 0;
   --text-body-lg-weight: 400;
   
-  /* Body MD — Default body text (minimum for mobile) */
-  --text-body-md-size: 1rem;
-  --text-body-md-line: 1.6;
-  --text-body-md-spacing: 0em;
+  /* Body MD — Secondary content */
+  --text-body-md: 1rem;
+  --text-body-md-line: 1.5;
+  --text-body-md-tracking: 0;
   --text-body-md-weight: 400;
   
-  /* Body SM — Secondary text */
-  --text-body-sm-size: 0.9375rem;
+  /* Body SM — Tertiary content */
+  --text-body-sm: 0.875rem;
   --text-body-sm-line: 1.5;
-  --text-body-sm-spacing: 0em;
+  --text-body-sm-tracking: 0;
   --text-body-sm-weight: 400;
   
   /* Label — Form labels, buttons */
-  --text-label-size: 0.9375rem;
-  --text-label-line: 1.2;
-  --text-label-spacing: 0.01em;
+  --text-label: 0.875rem;
+  --text-label-line: 1.4;
+  --text-label-tracking: 0.01em;
   --text-label-weight: 500;
   
-  /* Caption — Timestamps, helper text */
-  --text-caption-size: 0.8125rem;
+  /* Caption — Timestamps, meta */
+  --text-caption: 0.75rem;
   --text-caption-line: 1.4;
-  --text-caption-spacing: 0.01em;
+  --text-caption-tracking: 0.02em;
   --text-caption-weight: 400;
-
-  /* ----------------------------------------
-   * SPACING
-   * 4px base grid for precise alignment
-   * Generous touch targets (min 48px)
-   * ---------------------------------------- */
   
-  --spacing-px: 1px;
-  --spacing-0: 0px;
+  /* -------------------------------------------
+     SPACING — 4px Base Grid
+     ------------------------------------------- */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
   --spacing-md: 16px;
@@ -152,19 +161,13 @@
   --spacing-4xl: 96px;
   --spacing-5xl: 128px;
   
-  /* Component-specific spacing */
+  /* Touch-optimized spacing */
   --spacing-touch-min: 48px;
-  --spacing-card-padding: var(--spacing-md);
-  --spacing-section-gap: var(--spacing-2xl);
-  --spacing-input-padding-x: var(--spacing-md);
-  --spacing-input-padding-y: var(--spacing-sm);
-
-  /* ----------------------------------------
-   * BORDER RADIUS
-   * Rounded, friendly shapes
-   * Full radius for pills and avatars
-   * ---------------------------------------- */
+  --spacing-touch-comfortable: 56px;
   
+  /* -------------------------------------------
+     BORDER RADIUS
+     ------------------------------------------- */
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
@@ -172,70 +175,66 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
   
-  /* Component-specific radii */
-  --radius-button: var(--radius-lg);
-  --radius-card: var(--radius-xl);
-  --radius-input: var(--radius-md);
-  --radius-avatar: var(--radius-full);
-  --radius-badge: var(--radius-full);
-
-  /* ----------------------------------------
-   * SHADOWS
-   * Subtle elevation for dark backgrounds
-   * ---------------------------------------- */
+  /* -------------------------------------------
+     SHADOWS — Elevated surfaces
+     ------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.7);
+  --shadow-glow-green: 0 0 24px rgba(0, 200, 83, 0.4);
+  --shadow-glow-gold: 0 0 24px rgba(255, 179, 0, 0.4);
   
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.4);
-  --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5), 0 2px 4px -2px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 12px 24px -4px rgba(0, 0, 0, 0.6), 0 4px 8px -2px rgba(0, 0, 0, 0.4);
-  --shadow-xl: 0 24px 48px -8px rgba(0, 0, 0, 0.7);
-  --shadow-glow-green: 0 0 24px rgba(0, 177, 64, 0.4);
-  --shadow-glow-gold: 0 0 24px rgba(245, 158, 11, 0.4);
-
-  /* ----------------------------------------
-   * MOTION
-   * Quick, purposeful animations
-   * Reduced motion support
-   * ---------------------------------------- */
-  
-  /* Duration */
-  --duration-instant: 50ms;
+  /* -------------------------------------------
+     MOTION — Duration
+     ------------------------------------------- */
+  --duration-instant: 100ms;
   --duration-fast: 150ms;
   --duration-normal: 250ms;
   --duration-slow: 400ms;
   --duration-slower: 600ms;
   
-  /* Easing */
+  /* -------------------------------------------
+     MOTION — Easing
+     ------------------------------------------- */
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-linear: linear;
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55);
   
-  /* Common transitions */
-  --transition-fast: var(--duration-fast) var(--ease-out);
-  --transition-normal: var(--duration-normal) var(--ease-out);
-  --transition-spring: var(--duration-normal) var(--ease-spring);
-
-  /* ----------------------------------------
-   * Z-INDEX SCALE
-   * Predictable layering
-   * ---------------------------------------- */
-  
+  /* -------------------------------------------
+     Z-INDEX Scale
+     ------------------------------------------- */
   --z-base: 0;
-  --z-elevated: 10;
+  --z-raised: 10;
   --z-dropdown: 100;
   --z-sticky: 200;
-  --z-overlay: 300;
-  --z-modal: 400;
-  --z-toast: 500;
-  --z-tooltip: 600;
+  --z-modal: 300;
+  --z-toast: 400;
+  --z-tooltip: 500;
 }
 
-/* Reduced motion preference */
-@media (prefers-reduced-motion: reduce) {
+/* Dark mode is default — light mode override */
+@media (prefers-color-scheme: light) {
   :root {
-    --duration-fast: 0ms;
-    --duration-normal: 0ms;
-    --duration-slow: 0ms;
-    --duration-slower: 0ms;
+    --color-bg-primary: var(--color-neutral-50);
+    --color-bg-secondary: var(--color-white);
+    --color-bg-tertiary: var(--color-neutral-100);
+    --color-bg-elevated: var(--color-white);
+    
+    --color-text-primary: var(--color-neutral-950);
+    --color-text-secondary: var(--color-neutral-600);
+    --color-text-tertiary: var(--color-neutral-500);
+    --color-text-disabled: var(--color-neutral-400);
+    --color-text-inverse: var(--color-white);
+    
+    --color-border-default: var(--color-neutral-200);
+    --color-border-subtle: var(--color-neutral-100);
+    --color-border-strong: var(--color-neutral-400);
+    
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.16);
+    --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.2);
   }
 }
