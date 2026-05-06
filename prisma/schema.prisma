@@ -1,0 +1,118 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VehicleType {
+  OKADA
+  KEKE
+}
+
+enum RideStatus {
+  REQUESTED
+  ACCEPTED
+  ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model User {
+  id          String   @id @default(uuid())
+  phoneNumber String   @unique @map("phone_number")
+  firstName   String?  @map("first_name")
+  lastName    String?  @map("last_name")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  rides       Ride[]   @relation("PassengerRides")
+
+  @@map("users")
+}
+
+model Driver {
+  id           String      @id @default(uuid())
+  phoneNumber  String      @unique @map("phone_number")
+  firstName    String      @map("first_name")
+  lastName     String      @map("last_name")
+  vehicleType  VehicleType @map("vehicle_type")
+  vehiclePlate String      @map("vehicle_plate")
+  vehicleModel String      @map("vehicle_model")
+  isAvailable  Boolean     @default(true) @map("is_available")
+  isVerified   Boolean     @default(false) @map("is_verified")
+  rating       Decimal     @default(5.0) @db.Decimal(3, 2)
+  totalRides   Int         @default(0) @map("total_rides")
+  currentLat   Decimal?    @map("current_lat") @db.Decimal(10, 8)
+  currentLng   Decimal?    @map("current_lng") @db.Decimal(11, 8)
+  createdAt    DateTime    @default(now()) @map("created_at")
+  updatedAt    DateTime    @updatedAt @map("updated_at")
+  rides        Ride[]      @relation("DriverRides")
+
+  @@map("drivers")
+}
+
+model Zone {
+  id             String        @id @default(uuid())
+  name           String        @unique
+  polygon        Json
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+  pickupRides    Ride[]        @relation("PickupZone")
+  dropoffRides   Ride[]        @relation("DropoffZone")
+  fromPricings   ZonePricing[] @relation("FromZone")
+  toPricings     ZonePricing[] @relation("ToZone")
+
+  @@map("zones")
+}
+
+model ZonePricing {
+  id         String   @id @default(uuid())
+  fromZoneId String   @map("from_zone_id")
+  toZoneId   String   @map("to_zone_id")
+  kekePrice  Decimal  @map("keke_price") @db.Decimal(10, 2)
+  okadaPrice Decimal  @map("okada_price") @db.Decimal(10, 2)
+  fromZone   Zone     @relation("FromZone", fields: [fromZoneId], references: [id])
+  toZone     Zone     @relation("ToZone", fields: [toZoneId], references: [id])
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([fromZoneId, toZoneId])
+  @@map("zone_pricing")
+}
+
+model Ride {
+  id                 String      @id @default(uuid())
+  passengerId        String      @map("passenger_id")
+  driverId           String?     @map("driver_id")
+  status             RideStatus  @default(REQUESTED)
+  vehicleType        VehicleType @map("vehicle_type")
+  pickupAddress      String      @map("pickup_address")
+  pickupLat          Decimal     @map("pickup_lat") @db.Decimal(10, 8)
+  pickupLng          Decimal     @map("pickup_lng") @db.Decimal(11, 8)
+  dropoffAddress     String      @map("dropoff_address")
+  dropoffLat         Decimal     @map("dropoff_lat") @db.Decimal(10, 8)
+  dropoffLng         Decimal     @map("dropoff_lng") @db.Decimal(11, 8)
+  fareAmount         Decimal?    @map("fare_amount") @db.Decimal(10, 2)
+  pickupZoneId       String?     @map("pickup_zone_id")
+  dropoffZoneId      String?     @map("dropoff_zone_id")
+  requestedAt        DateTime    @default(now()) @map("requested_at")
+  acceptedAt         DateTime?   @map("accepted_at")
+  arrivedAt          DateTime?   @map("arrived_at")
+  startedAt          DateTime?   @map("started_at")
+  completedAt        DateTime?   @map("completed_at")
+  cancelledAt        DateTime?   @map("cancelled_at")
+  cancelledBy        String?     @map("cancelled_by")
+  cancellationReason String?     @map("cancellation_reason")
+  passenger          User        @relation("PassengerRides", fields: [passengerId], references: [id])
+  driver             Driver?     @relation("DriverRides", fields: [driverId], references: [id])
+  pickupZone         Zone?       @relation("PickupZone", fields: [pickupZoneId], references: [id])
+  dropoffZone        Zone?       @relation("DropoffZone", fields: [dropoffZoneId], references: [id])
+
+  @@index([passengerId])
+  @@index([driverId])
+  @@index([status])
+  @@map("rides")
+}
