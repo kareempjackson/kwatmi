@@ -1,0 +1,155 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String    @id @default(uuid())
+  email             String    @unique
+  phone             String    @unique
+  passwordHash      String
+  firstName         String
+  lastName          String
+  role              UserRole  @default(RIDER)
+  isEmailVerified   Boolean   @default(false)
+  isPhoneVerified   Boolean   @default(false)
+  isActive          Boolean   @default(true)
+  fcmTokens         FcmToken[]
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  // Driver specific fields
+  driverProfile     DriverProfile?
+  ridesAsRider      Ride[]    @relation("RiderRides")
+  ridesAsDriver     Ride[]    @relation("DriverRides")
+  notifications     Notification[]
+}
+
+enum UserRole {
+  RIDER
+  DRIVER
+  ADMIN
+}
+
+model FcmToken {
+  id          String   @id @default(uuid())
+  token       String   @unique
+  deviceType  DeviceType @default(ANDROID)
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
+
+enum DeviceType {
+  ANDROID
+  IOS
+  WEB
+}
+
+model DriverProfile {
+  id                String   @id @default(uuid())
+  userId            String   @unique
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  licenseNumber     String
+  vehiclePlate      String
+  vehicleModel      String
+  vehicleColor      String
+  isVerified        Boolean  @default(false)
+  isOnline          Boolean  @default(false)
+  currentLatitude   Float?
+  currentLongitude  Float?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+model Ride {
+  id                  String     @id @default(uuid())
+  riderId             String
+  rider               User       @relation("RiderRides", fields: [riderId], references: [id])
+  driverId            String?
+  driver              User?      @relation("DriverRides", fields: [driverId], references: [id])
+  
+  pickupLatitude      Float
+  pickupLongitude     Float
+  pickupAddress       String
+  dropoffLatitude     Float
+  dropoffLongitude    Float
+  dropoffAddress      String
+  
+  status              RideStatus @default(PENDING)
+  estimatedFare       Float
+  actualFare          Float?
+  distance            Float?     // in kilometers
+  duration            Int?       // in minutes
+  
+  requestedAt         DateTime   @default(now())
+  acceptedAt          DateTime?
+  arrivedAt           DateTime?
+  startedAt           DateTime?
+  completedAt         DateTime?
+  cancelledAt         DateTime?
+  cancellationReason  String?
+  
+  createdAt           DateTime   @default(now())
+  updatedAt           DateTime   @updatedAt
+
+  @@index([riderId])
+  @@index([driverId])
+  @@index([status])
+}
+
+enum RideStatus {
+  PENDING
+  ACCEPTED
+  DRIVER_ARRIVED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Notification {
+  id          String             @id @default(uuid())
+  userId      String
+  user        User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  body        String
+  data        Json?
+  type        NotificationType
+  status      NotificationStatus @default(PENDING)
+  sentAt      DateTime?
+  readAt      DateTime?
+  error       String?
+  createdAt   DateTime           @default(now())
+  updatedAt   DateTime           @updatedAt
+
+  @@index([userId])
+  @@index([status])
+}
+
+enum NotificationType {
+  RIDE_ACCEPTED
+  DRIVER_ARRIVED
+  RIDE_COMPLETED
+  RIDE_CANCELLED
+  PAYMENT_RECEIVED
+  GENERAL
+}
+
+enum NotificationStatus {
+  PENDING
+  QUEUED
+  SENT
+  FAILED
+  READ
+}
