@@ -1,0 +1,96 @@
+// Prisma schema for Kwatmi's Studio - Nigerian Uber Clone
+// Supports users, drivers, rides, and zone management
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// User model - riders who request rides
+model User {
+  id        String   @id @default(cuid())
+  phone     String   @unique
+  name      String?
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  rides     Ride[]   @relation("RiderRides")
+
+  @@map("users")
+}
+
+// Vehicle types available in Nigeria
+enum VehicleType {
+  okada // Motorcycle taxi
+  keke  // Three-wheeler/tricycle
+}
+
+// Driver model - okada and keke drivers
+model Driver {
+  id          String      @id @default(cuid())
+  name        String
+  phone       String      @unique
+  photoUrl    String?     @map("photo_url")
+  vehicleType VehicleType @map("vehicle_type")
+  plateNumber String      @map("plate_number")
+  rating      Float       @default(5.0)
+  isActive    Boolean     @default(true) @map("is_active")
+  currentLat  Float?      @map("current_lat")
+  currentLng  Float?      @map("current_lng")
+  createdAt   DateTime    @default(now()) @map("created_at")
+  updatedAt   DateTime    @updatedAt @map("updated_at")
+  rides       Ride[]      @relation("DriverRides")
+
+  @@map("drivers")
+}
+
+// Ride status lifecycle
+enum RideStatus {
+  requested
+  accepted
+  arrived
+  in_progress
+  completed
+  cancelled
+}
+
+// Ride model - individual ride requests and trips
+model Ride {
+  id             String     @id @default(cuid())
+  riderId        String     @map("rider_id")
+  driverId       String?    @map("driver_id")
+  pickupLat      Float      @map("pickup_lat")
+  pickupLng      Float      @map("pickup_lng")
+  pickupAddress  String     @map("pickup_address")
+  dropoffLat     Float      @map("dropoff_lat")
+  dropoffLng     Float      @map("dropoff_lng")
+  dropoffAddress String     @map("dropoff_address")
+  zonePair       String?    @map("zone_pair") // Format: "zone1_id:zone2_id"
+  fareAmount     Float?     @map("fare_amount")
+  status         RideStatus @default(requested)
+  createdAt      DateTime   @default(now()) @map("created_at")
+  updatedAt      DateTime   @updatedAt @map("updated_at")
+
+  rider  User    @relation("RiderRides", fields: [riderId], references: [id])
+  driver Driver? @relation("DriverRides", fields: [driverId], references: [id])
+
+  @@index([riderId])
+  @@index([driverId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("rides")
+}
+
+// Zone model - geographic zones for fare calculation
+model Zone {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  polygon   Json     // GeoJSON polygon coordinates
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("zones")
+}
